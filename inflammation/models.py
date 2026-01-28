@@ -32,3 +32,17 @@ def daily_min(data):
     """Calculate the daily min of a 2d inflammation data array."""
     return np.min(data, axis=0)
 
+def patient_normalise(data):
+    """Normalise patient data from a 2D inflammation data array."""
+    max = np.max(data, axis=1)
+    return data / max[:, np.newaxis]
+
+def analyse_data(data_source):
+    """Calculate the standard deviation by day between datasets
+    Gets all the inflammation csvs within a directory, works out the mean
+    inflammation value for each day across all datasets, then graphs the
+    standard deviation of these means."""
+    data = data_source.load_inflammation_data()
+    daily_standard_deviation = compute_standard_deviation_by_data(data)
+
+    return daily_standard_deviation
